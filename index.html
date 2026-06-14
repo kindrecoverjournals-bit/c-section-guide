@@ -417,9 +417,22 @@
   .testi-card p.quote {
     font-size: 0.98rem;
     color: var(--ink-soft);
-    margin-bottom: 22px;
+    margin-bottom: 26px;
     font-style: italic;
     line-height: 1.7;
+  }
+  .testi-meta { display: flex; align-items: center; gap: 14px; }
+  .testi-avatar {
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    border: 1px solid var(--gold-soft);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Fraunces', serif;
+    font-size: 1rem;
+    color: var(--gold);
+    flex-shrink: 0;
   }
   .testi-author { font-size: 0.85rem; color: var(--ink); font-family: 'Fraunces', serif; }
   .testi-context { font-size: 0.78rem; color: var(--ink-faint); margin-top: 2px; }
@@ -504,6 +517,97 @@
   .download-meta span { display: inline-flex; align-items: center; gap: 8px; }
   .download-meta svg { width: 14px; height: 14px; stroke: var(--gold); }
 
+  /* ---------- Proof bar ---------- */
+  .proof-bar {
+    border-top: 1px solid var(--panel-line);
+    border-bottom: 1px solid var(--panel-line);
+    padding: 36px 0;
+  }
+  .proof-bar .wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 56px;
+    flex-wrap: wrap;
+    text-align: center;
+  }
+  .proof-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .proof-item .num {
+    font-family: 'Fraunces', serif;
+    font-size: 1.7rem;
+    font-weight: 400;
+    color: var(--gold);
+  }
+  .proof-item .label {
+    font-size: 0.76rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .proof-divider {
+    width: 1px;
+    height: 36px;
+    background: var(--panel-line);
+  }
+
+  /* ---------- FAQ ---------- */
+  .faq-list {
+    max-width: 720px;
+    margin: 0 auto;
+    border-top: 1px solid var(--panel-line);
+  }
+  .faq-item {
+    border-bottom: 1px solid var(--panel-line);
+  }
+  .faq-question {
+    width: 100%;
+    background: none;
+    border: none;
+    color: var(--ink);
+    font-family: 'Fraunces', serif;
+    font-size: 1.08rem;
+    font-weight: 400;
+    text-align: left;
+    padding: 26px 4px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    transition: color 0.3s ease;
+  }
+  .faq-question:hover { color: var(--gold); }
+  .faq-icon {
+    flex-shrink: 0;
+    width: 22px; height: 22px;
+    position: relative;
+  }
+  .faq-icon::before, .faq-icon::after {
+    content: "";
+    position: absolute;
+    background: var(--gold);
+    transition: transform 0.35s cubic-bezier(.22,1,.36,1);
+  }
+  .faq-icon::before { top: 50%; left: 0; width: 100%; height: 1px; transform: translateY(-50%); }
+  .faq-icon::after { left: 50%; top: 0; width: 1px; height: 100%; transform: translateX(-50%); }
+  .faq-item.open .faq-icon::after { transform: translateX(-50%) rotate(90deg); opacity: 0; }
+  .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.45s cubic-bezier(.22,1,.36,1);
+  }
+  .faq-answer p {
+    color: var(--ink-soft);
+    font-size: 0.96rem;
+    padding: 0 4px 26px;
+    max-width: 600px;
+  }
+  .faq-item.open .faq-answer { max-height: 200px; }
+
   /* ---------- Footer ---------- */
   footer {
     padding: 48px 0;
@@ -536,6 +640,10 @@
     .hero { padding: 70px 0 80px; }
     .quote-band { padding: 70px 0; }
     .final-cta { padding: 80px 0 90px; }
+    .proof-bar .wrap { gap: 28px; }
+    .proof-divider { display: none; }
+    .proof-item { min-width: 40%; }
+    .faq-question { font-size: 1rem; }
   }
 </style>
 </head>
@@ -577,6 +685,31 @@
   </div>
 </section>
 
+<!-- PROOF BAR -->
+<div class="proof-bar reveal">
+  <div class="wrap">
+    <div class="proof-item">
+      <div class="num">5-5-5</div>
+      <div class="label">Recovery Framework</div>
+    </div>
+    <div class="proof-divider"></div>
+    <div class="proof-item">
+      <div class="num">ACOG · ERAS</div>
+      <div class="label">Guideline-Informed</div>
+    </div>
+    <div class="proof-divider"></div>
+    <div class="proof-item">
+      <div class="num">6 Weeks</div>
+      <div class="label">Full Recovery Plan</div>
+    </div>
+    <div class="proof-divider"></div>
+    <div class="proof-item">
+      <div class="num">A4 / Letter</div>
+      <div class="label">Print-Ready PDF</div>
+    </div>
+  </div>
+</div>
+
 <div class="seam"></div>
 
 <!-- THE 5-5-5 RULE -->
@@ -592,19 +725,19 @@
         <div class="phase-days"><span class="num">5</span><span class="label">days</span></div>
         <div class="phase-range">Days 1–5 · In the Bed</div>
         <h3>Absolute Rest</h3>
-        <p>Spend most of your day lying down. Practice skin-to-skin bonding, keep baby's bassinet close, and let your support team handle meals, chores, and diaper changes.</p>
+        <p>Lie down, bond skin-to-skin, and let your support team handle everything else.</p>
       </div>
       <div class="phase-card reveal reveal-delay-2">
         <div class="phase-days"><span class="num">5</span><span class="label">days</span></div>
         <div class="phase-range">Days 6–10 · On the Bed</div>
         <h3>Sit Up, Slow Down</h3>
-        <p>Transition to sitting upright with pillow support. Keep visits short and contained to your room, letting others continue to bring meals to your bedside.</p>
+        <p>Sit upright with pillow support and keep visits short, right in your room.</p>
       </div>
       <div class="phase-card reveal reveal-delay-3">
         <div class="phase-days"><span class="num">5</span><span class="label">days</span></div>
         <div class="phase-range">Days 11–15 · Around the Bed</div>
         <h3>Gentle Steps</h3>
-        <p>Take short 2–3 minute walks inside your room to support circulation. Avoid stairs, lifting, and any housework — your only job is still to heal.</p>
+        <p>Short walks to support circulation — still no stairs, lifting, or housework.</p>
       </div>
     </div>
   </div>
@@ -626,28 +759,28 @@
           <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
         </div>
         <h3>Daily Tracker</h3>
-        <p>Log your pain level, medication doses (acetaminophen and NSAID), and a daily incision check — all in one simple page.</p>
+        <p>Pain level, medication doses, and a daily incision check in one page.</p>
       </div>
       <div class="inside-card reveal reveal-delay-2">
         <div class="inside-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
         </div>
         <h3>Physical &amp; Emotional Check-In</h3>
-        <p>Track hydration, temperature, and how your body feels each day — plus a gentle space to name what your heart needs too.</p>
+        <p>Hydration, temperature, and a gentle space for how your heart feels.</p>
       </div>
       <div class="inside-card reveal reveal-delay-1">
         <div class="inside-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
         </div>
         <h3>Incision Visual Check</h3>
-        <p>A simple, guided way to check your incision at home — is it dry and intact, or showing signs you should call your doctor?</p>
+        <p>A guided way to check if your incision is healing as expected.</p>
       </div>
       <div class="inside-card reveal reveal-delay-2">
         <div class="inside-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="5"/><path d="M8.5 12.5L7 22l5-3 5 3-1.5-9.5"/></svg>
         </div>
         <h3>Built on Trusted Guidance</h3>
-        <p>Content informed by postpartum recovery guidelines from ACOG and the ERAS Society — a calm, personal companion, not a medical directive.</p>
+        <p>Informed by postpartum recovery guidelines from ACOG and ERAS.</p>
       </div>
     </div>
   </div>
@@ -665,21 +798,36 @@
     <div class="testi-grid">
       <div class="testi-card reveal reveal-delay-1">
         <div class="testi-stars">★★★★★</div>
-        <p class="quote">I didn't realize how much I needed permission to just lie down. The 5-5-5 rule gave me that, written down, in black and white.</p>
-        <div class="testi-author">Hannah R.</div>
-        <div class="testi-context">2 weeks postpartum</div>
+        <p class="quote">Gave me permission to just lie down — written in black and white.</p>
+        <div class="testi-meta">
+          <div class="testi-avatar">H</div>
+          <div>
+            <div class="testi-author">Hannah R.</div>
+            <div class="testi-context">2 weeks postpartum</div>
+          </div>
+        </div>
       </div>
       <div class="testi-card reveal reveal-delay-2">
         <div class="testi-stars">★★★★★</div>
-        <p class="quote">Simple enough to fill out one-handed while feeding the baby. The incision check page alone was worth downloading this for.</p>
-        <div class="testi-author">Priya M.</div>
-        <div class="testi-context">First-time mom</div>
+        <p class="quote">Simple enough to fill out one-handed while feeding the baby.</p>
+        <div class="testi-meta">
+          <div class="testi-avatar">P</div>
+          <div>
+            <div class="testi-author">Priya M.</div>
+            <div class="testi-context">First-time mom</div>
+          </div>
+        </div>
       </div>
       <div class="testi-card reveal reveal-delay-3">
         <div class="testi-stars">★★★★★</div>
-        <p class="quote">Gentle, not clinical. It felt like a friend checking in on me, not another form to fill out for the doctor.</p>
-        <div class="testi-author">Sofia D.</div>
-        <div class="testi-context">Second C-section</div>
+        <p class="quote">Gentle, not clinical. Like a friend checking in on me.</p>
+        <div class="testi-meta">
+          <div class="testi-avatar">S</div>
+          <div>
+            <div class="testi-author">Sofia D.</div>
+            <div class="testi-context">Second C-section</div>
+          </div>
+        </div>
       </div>
     </div>
     <p class="testi-disclaimer reveal reveal-delay-4">Illustrative reviews for preview purposes.</p>
@@ -691,6 +839,56 @@
   <blockquote>"Resting is not laziness. Resting is active recovery."</blockquote>
   <cite>From the C-Section Recovery Journal</cite>
 </div>
+
+<div class="seam"></div>
+
+<!-- FAQ -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="kicker">Common Questions</div>
+      <h2>Before you download</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item reveal">
+        <button class="faq-question">
+          Is this a substitute for medical advice?
+          <span class="faq-icon"></span>
+        </button>
+        <div class="faq-answer">
+          <p>No. This journal is an educational tracking tool only. It does not replace guidance from your OB-GYN or healthcare team — always consult them for medical decisions.</p>
+        </div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-question">
+          What format is the download?
+          <span class="faq-icon"></span>
+        </button>
+        <div class="faq-answer">
+          <p>A print-ready PDF, formatted for both A4 and US Letter paper, so you can print at home or read on your phone or tablet.</p>
+        </div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-question">
+          Do I need to provide my email?
+          <span class="faq-icon"></span>
+        </button>
+        <div class="faq-answer">
+          <p>No. The free Week 1 preview downloads instantly from Google Drive — no signup required.</p>
+        </div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-question">
+          What if I want the full 6-week journal?
+          <span class="faq-icon"></span>
+        </button>
+        <div class="faq-answer">
+          <p>The free preview includes a link inside to the complete 6-week journal, with trackers, guides, and resources for your entire recovery.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <div class="seam"></div>
 
@@ -741,6 +939,15 @@
       heroBg.style.transform = `translateY(${y * 0.15}px)`;
     }
   }, { passive: true });
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-item').forEach(item => {
+    item.querySelector('.faq-question').addEventListener('click', () => {
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    });
+  });
 </script>
 
 </body>
