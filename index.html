@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>C-Section Recovery Journal — A Gentle 6-Week Healing Plan | KindRecover</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #15131A;
+    --bg-deep: #0F0D12;
+    --panel: #1C1A21;
+    --panel-line: rgba(242,239,233,0.08);
+    --ink: #F2EFE9;
+    --ink-soft: #B9B3AE;
+    --ink-faint: #80797C;
+    --gold: #C9A876;
+    --gold-soft: rgba(201,168,118,0.14);
+    --sage: #92A38E;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Source Serif 4', Georgia, serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.7;
+    font-size: 17px;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3 {
+    font-family: 'Fraunces', Georgia, serif;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+    font-weight: 400;
+  }
+
+  .wrap {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  /* ---------- Reveal-on-scroll ---------- */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.9s cubic-bezier(.22,1,.36,1), transform 0.9s cubic-bezier(.22,1,.36,1);
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.08s; }
+  .reveal-delay-2 { transition-delay: 0.16s; }
+  .reveal-delay-3 { transition-delay: 0.24s; }
+  .reveal-delay-4 { transition-delay: 0.32s; }
+
+  /* ---------- Stitch divider ---------- */
+  .seam {
+    width: 100%;
+    height: 1px;
+    position: relative;
+    overflow: hidden;
+  }
+  .seam::after {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 1px;
+    background: repeating-linear-gradient(90deg, var(--gold) 0 8px, transparent 8px 18px);
+    opacity: 0.35;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 1.4s cubic-bezier(.22,1,.36,1);
+  }
+  .seam.visible::after { transform: scaleX(1); }
+
+  /* ---------- Top bar ---------- */
+  .topbar {
+    padding: 28px 0;
+    position: relative;
+    z-index: 10;
+  }
+  .topbar .wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .logo {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 1.15rem;
+    letter-spacing: 0.06em;
+    color: var(--ink);
+  }
+  .logo span { color: var(--gold); font-style: italic; }
+  .topbar-tag {
+    font-size: 0.72rem;
+    color: var(--ink-faint);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    font-family: 'Source Serif 4', serif;
+  }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    padding: 110px 0 130px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute;
+    inset: -20% -10%;
+    z-index: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(ellipse 50% 40% at 75% 15%, rgba(201,168,118,0.16) 0%, transparent 60%),
+      radial-gradient(ellipse 45% 45% at 15% 85%, rgba(146,163,142,0.10) 0%, transparent 60%);
+    will-change: transform;
+  }
+  .hero .wrap {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.74rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 30px;
+    font-family: 'Source Serif 4', serif;
+    font-weight: 600;
+  }
+  .eyebrow::before {
+    content: "";
+    width: 28px; height: 1px;
+    background: var(--gold);
+    display: inline-block;
+  }
+  .hero h1 {
+    font-size: clamp(2.6rem, 5vw, 4.2rem);
+    font-weight: 400;
+    line-height: 1.14;
+    margin-bottom: 28px;
+    letter-spacing: -0.02em;
+  }
+  .hero h1 em {
+    font-style: italic;
+    font-weight: 300;
+    color: var(--gold);
+  }
+  .hero p.lede {
+    font-size: 1.14rem;
+    color: var(--ink-soft);
+    max-width: 470px;
+    margin-bottom: 42px;
+    font-weight: 400;
+  }
+
+  .cta-row {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .cta-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--gold);
+    color: #1C1A21;
+    font-family: 'Source Serif 4', serif;
+    font-weight: 600;
+    font-size: 0.95rem;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    padding: 18px 38px;
+    border-radius: 2px;
+    transition: all 0.35s cubic-bezier(.22,1,.36,1);
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-button .arrow { transition: transform 0.35s cubic-bezier(.22,1,.36,1); }
+  .cta-button:hover { background: #DCC096; letter-spacing: 0.07em; padding-right: 34px; }
+  .cta-button:hover .arrow { transform: translateX(5px); }
+
+  .cta-sub {
+    font-size: 0.84rem;
+    color: var(--ink-faint);
+    letter-spacing: 0.02em;
+  }
+
+  /* Hero visual */
+  .hero-visual {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    perspective: 1000px;
+  }
+  .journal-card {
+    width: 100%;
+    max-width: 360px;
+    aspect-ratio: 3/4;
+    background: linear-gradient(160deg, #211F26 0%, #181620 100%);
+    border: 1px solid var(--panel-line);
+    border-radius: 6px;
+    box-shadow:
+      0 40px 100px -30px rgba(0,0,0,0.7),
+      0 0 0 1px rgba(201,168,118,0.06);
+    padding: 56px 44px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    transform: rotate(-3deg);
+    position: relative;
+    transition: transform 0.6s cubic-bezier(.22,1,.36,1);
+  }
+  .journal-card::before {
+    content: "";
+    position: absolute;
+    top: 28px; left: 28px; right: 28px; bottom: 28px;
+    border: 1px solid rgba(201,168,118,0.18);
+    border-radius: 3px;
+  }
+  .hero-visual:hover .journal-card { transform: rotate(0deg) scale(1.02); }
+  .journal-card .dots {
+    display: flex; gap: 9px; margin-bottom: 22px;
+  }
+  .journal-card .dots span {
+    width: 5px; height: 5px; border-radius: 50%; background: var(--gold); opacity: 0.6;
+  }
+  .journal-card .tag {
+    font-size: 0.68rem;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-family: 'Source Serif 4', serif;
+    font-weight: 600;
+    margin-bottom: 18px;
+  }
+  .journal-card h3 {
+    font-size: 1.85rem;
+    font-weight: 400;
+    line-height: 1.22;
+    margin-bottom: 12px;
+    letter-spacing: -0.01em;
+  }
+  .journal-card .sub {
+    font-size: 0.9rem;
+    color: var(--ink-faint);
+    font-style: italic;
+    margin-bottom: 26px;
+  }
+  .journal-card .arrows {
+    color: var(--gold);
+    font-size: 0.95rem;
+    letter-spacing: 10px;
+    opacity: 0.7;
+  }
+
+  .float-badge {
+    position: absolute;
+    background: rgba(28,26,33,0.85);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--panel-line);
+    border-radius: 4px;
+    padding: 14px 18px;
+    font-size: 0.8rem;
+    font-family: 'Source Serif 4', serif;
+    color: var(--ink-soft);
+    line-height: 1.4;
+  }
+  .float-badge strong { color: var(--gold); font-family: 'Fraunces', serif; font-weight: 500; display:block; font-size: 0.95rem; }
+  .badge-week1 { top: 8%; right: -8%; }
+  .badge-pages { bottom: 10%; left: -10%; }
+
+  /* ---------- Section shared ---------- */
+  .section { padding: 110px 0; }
+  .section-head {
+    max-width: 620px;
+    margin: 0 auto 64px;
+    text-align: center;
+  }
+  .section-head .kicker {
+    font-size: 0.74rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 18px;
+    font-family: 'Source Serif 4', serif;
+  }
+  .section-head h2 {
+    font-size: clamp(2rem, 3.6vw, 2.9rem);
+    font-weight: 400;
+    margin-bottom: 18px;
+    letter-spacing: -0.01em;
+  }
+  .section-head p { color: var(--ink-soft); font-size: 1.05rem; }
+
+  /* ---------- 5-5-5 phase strip ---------- */
+  .phase-strip {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--panel-line);
+    border: 1px solid var(--panel-line);
+  }
+  .phase-card {
+    background: var(--bg);
+    padding: 48px 38px;
+    position: relative;
+    transition: background 0.4s ease;
+  }
+  .phase-card:hover { background: var(--panel); }
+  .phase-days {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 26px;
+  }
+  .phase-days .num {
+    font-family: 'Fraunces', serif;
+    font-size: 3.4rem;
+    font-weight: 300;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .phase-days .label {
+    font-size: 0.74rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+  }
+  .phase-card h3 {
+    font-size: 1.25rem;
+    font-weight: 400;
+    margin-bottom: 8px;
+  }
+  .phase-range {
+    font-size: 0.78rem;
+    color: var(--ink-faint);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+    font-family: 'Source Serif 4', serif;
+  }
+  .phase-card p {
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+  }
+
+  /* ---------- Inside the journal ---------- */
+  .inside-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: var(--panel-line);
+    border: 1px solid var(--panel-line);
+  }
+  .inside-card {
+    padding: 44px 40px;
+    background: var(--bg);
+    transition: background 0.4s ease;
+  }
+  .inside-card:hover { background: var(--panel); }
+  .inside-icon {
+    width: 44px; height: 44px;
+    border: 1px solid var(--gold-soft);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 22px;
+  }
+  .inside-icon svg { width: 19px; height: 19px; stroke: var(--gold); }
+  .inside-card h3 {
+    font-size: 1.18rem;
+    font-weight: 400;
+    margin-bottom: 10px;
+  }
+  .inside-card p {
+    font-size: 0.94rem;
+    color: var(--ink-soft);
+  }
+
+  /* ---------- Testimonials ---------- */
+  .testimonials { background: var(--panel); }
+  .testi-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+  .testi-card {
+    border: 1px solid var(--panel-line);
+    border-radius: 4px;
+    padding: 36px 32px;
+    transition: border-color 0.4s ease, transform 0.4s cubic-bezier(.22,1,.36,1);
+  }
+  .testi-card:hover {
+    border-color: rgba(201,168,118,0.3);
+    transform: translateY(-4px);
+  }
+  .testi-stars { color: var(--gold); font-size: 0.9rem; margin-bottom: 18px; letter-spacing: 3px; }
+  .testi-card p.quote {
+    font-size: 0.98rem;
+    color: var(--ink-soft);
+    margin-bottom: 22px;
+    font-style: italic;
+    line-height: 1.7;
+  }
+  .testi-author { font-size: 0.85rem; color: var(--ink); font-family: 'Fraunces', serif; }
+  .testi-context { font-size: 0.78rem; color: var(--ink-faint); margin-top: 2px; }
+  .testi-disclaimer {
+    text-align: center;
+    margin-top: 36px;
+    font-size: 0.76rem;
+    color: var(--ink-faint);
+    letter-spacing: 0.04em;
+  }
+
+  /* ---------- Quote band ---------- */
+  .quote-band {
+    padding: 100px 0;
+    text-align: center;
+    position: relative;
+  }
+  .quote-band blockquote {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(1.6rem, 3.4vw, 2.6rem);
+    font-weight: 300;
+    font-style: italic;
+    max-width: 760px;
+    margin: 0 auto 22px;
+    line-height: 1.45;
+    color: var(--ink);
+  }
+  .quote-band cite {
+    font-size: 0.76rem;
+    color: var(--gold);
+    font-style: normal;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+  }
+
+  /* ---------- Final CTA ---------- */
+  .final-cta {
+    padding: 120px 0 140px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .final-cta-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: radial-gradient(ellipse 60% 60% at 50% 50%, rgba(201,168,118,0.10) 0%, transparent 70%);
+  }
+  .final-cta .wrap { position: relative; z-index: 1; }
+  .final-cta .kicker {
+    font-size: 0.74rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 20px;
+    font-family: 'Source Serif 4', serif;
+  }
+  .final-cta h2 {
+    font-size: clamp(2.1rem, 4vw, 3.2rem);
+    font-weight: 400;
+    margin-bottom: 22px;
+    letter-spacing: -0.01em;
+  }
+  .final-cta p {
+    color: var(--ink-soft);
+    max-width: 540px;
+    margin: 0 auto 44px;
+    font-size: 1.05rem;
+  }
+  .final-cta .cta-row { justify-content: center; }
+  .download-meta {
+    margin-top: 36px;
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+    font-size: 0.82rem;
+    color: var(--ink-faint);
+    letter-spacing: 0.04em;
+  }
+  .download-meta span { display: inline-flex; align-items: center; gap: 8px; }
+  .download-meta svg { width: 14px; height: 14px; stroke: var(--gold); }
+
+  /* ---------- Footer ---------- */
+  footer {
+    padding: 48px 0;
+    text-align: center;
+  }
+  footer .disclaimer {
+    font-size: 0.8rem;
+    color: var(--ink-faint);
+    max-width: 600px;
+    margin: 0 auto 14px;
+    line-height: 1.7;
+  }
+  footer .copyright {
+    font-size: 0.78rem;
+    color: var(--ink-faint);
+    letter-spacing: 0.1em;
+    opacity: 0.7;
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 900px) {
+    .hero .wrap { grid-template-columns: 1fr; gap: 60px; }
+    .hero-visual { order: -1; }
+    .journal-card { max-width: 300px; }
+    .phase-strip { grid-template-columns: 1fr; }
+    .inside-grid { grid-template-columns: 1fr; }
+    .testi-grid { grid-template-columns: 1fr; }
+    .float-badge { display: none; }
+    .section { padding: 70px 0; }
+    .hero { padding: 70px 0 80px; }
+    .quote-band { padding: 70px 0; }
+    .final-cta { padding: 80px 0 90px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap">
+    <div class="logo">Kind<span>Recover</span></div>
+    <div class="topbar-tag">Postpartum Care</div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="wrap">
+    <div class="hero-text">
+      <div class="eyebrow reveal">Free Recovery Resource</div>
+      <h1 class="reveal reveal-delay-1">Your only job<br>is to heal. <em>Begin with<br>Week 1, free.</em></h1>
+      <p class="lede reveal reveal-delay-2">A gentle, science-informed 6-week recovery plan for life after a C-section — protect your incision, manage pain, and move through healing one calm day at a time.</p>
+      <div class="cta-row reveal reveal-delay-3">
+        <a href="https://drive.google.com/file/d/1Wgr5yYrvuYOKo7i8eIUFvQ90e2JcdQuQ/view?usp=drive_link" class="cta-button" target="_blank" rel="noopener">
+          Download the Free Preview <span class="arrow">→</span>
+        </a>
+      </div>
+      <p class="cta-sub reveal reveal-delay-4" style="margin-top:18px;">Instant PDF download · No email required</p>
+    </div>
+    <div class="hero-visual reveal reveal-delay-2">
+      <div class="float-badge badge-week1"><strong>Week 1</strong>included, free</div>
+      <div class="journal-card">
+        <div class="dots"><span></span><span></span><span></span><span></span><span></span></div>
+        <div class="tag">Your Only Job Is To Heal</div>
+        <h3>C-Section<br>Recovery Journal</h3>
+        <div class="sub">A Gentle 6-Week Healing Plan</div>
+        <div class="arrows">↑ ↑ ↑</div>
+      </div>
+      <div class="float-badge badge-pages"><strong>5-5-5 Rule</strong>recovery framework</div>
+    </div>
+  </div>
+</section>
+
+<div class="seam"></div>
+
+<!-- THE 5-5-5 RULE -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="kicker">The Core Framework</div>
+      <h2>The Postpartum 5-5-5 Rule</h2>
+      <p>A gentle structure for your first 15 days at home, giving your deep abdominal incision the quiet environment it needs to begin healing.</p>
+    </div>
+    <div class="phase-strip">
+      <div class="phase-card reveal reveal-delay-1">
+        <div class="phase-days"><span class="num">5</span><span class="label">days</span></div>
+        <div class="phase-range">Days 1–5 · In the Bed</div>
+        <h3>Absolute Rest</h3>
+        <p>Spend most of your day lying down. Practice skin-to-skin bonding, keep baby's bassinet close, and let your support team handle meals, chores, and diaper changes.</p>
+      </div>
+      <div class="phase-card reveal reveal-delay-2">
+        <div class="phase-days"><span class="num">5</span><span class="label">days</span></div>
+        <div class="phase-range">Days 6–10 · On the Bed</div>
+        <h3>Sit Up, Slow Down</h3>
+        <p>Transition to sitting upright with pillow support. Keep visits short and contained to your room, letting others continue to bring meals to your bedside.</p>
+      </div>
+      <div class="phase-card reveal reveal-delay-3">
+        <div class="phase-days"><span class="num">5</span><span class="label">days</span></div>
+        <div class="phase-range">Days 11–15 · Around the Bed</div>
+        <h3>Gentle Steps</h3>
+        <p>Take short 2–3 minute walks inside your room to support circulation. Avoid stairs, lifting, and any housework — your only job is still to heal.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="seam"></div>
+
+<!-- INSIDE THE JOURNAL -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="kicker">What's Inside the Free Download</div>
+      <h2>Your Week 1 toolkit</h2>
+      <p>A complete daily tracker for your first week home — built around the questions your body is already asking.</p>
+    </div>
+    <div class="inside-grid">
+      <div class="inside-card reveal reveal-delay-1">
+        <div class="inside-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+        </div>
+        <h3>Daily Tracker</h3>
+        <p>Log your pain level, medication doses (acetaminophen and NSAID), and a daily incision check — all in one simple page.</p>
+      </div>
+      <div class="inside-card reveal reveal-delay-2">
+        <div class="inside-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+        </div>
+        <h3>Physical &amp; Emotional Check-In</h3>
+        <p>Track hydration, temperature, and how your body feels each day — plus a gentle space to name what your heart needs too.</p>
+      </div>
+      <div class="inside-card reveal reveal-delay-1">
+        <div class="inside-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h3>Incision Visual Check</h3>
+        <p>A simple, guided way to check your incision at home — is it dry and intact, or showing signs you should call your doctor?</p>
+      </div>
+      <div class="inside-card reveal reveal-delay-2">
+        <div class="inside-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="5"/><path d="M8.5 12.5L7 22l5-3 5 3-1.5-9.5"/></svg>
+        </div>
+        <h3>Built on Trusted Guidance</h3>
+        <p>Content informed by postpartum recovery guidelines from ACOG and the ERAS Society — a calm, personal companion, not a medical directive.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="seam"></div>
+
+<!-- TESTIMONIALS -->
+<section class="section testimonials">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="kicker">From Mamas Who Used It</div>
+      <h2>Quiet, calm, and just enough</h2>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card reveal reveal-delay-1">
+        <div class="testi-stars">★★★★★</div>
+        <p class="quote">I didn't realize how much I needed permission to just lie down. The 5-5-5 rule gave me that, written down, in black and white.</p>
+        <div class="testi-author">Hannah R.</div>
+        <div class="testi-context">2 weeks postpartum</div>
+      </div>
+      <div class="testi-card reveal reveal-delay-2">
+        <div class="testi-stars">★★★★★</div>
+        <p class="quote">Simple enough to fill out one-handed while feeding the baby. The incision check page alone was worth downloading this for.</p>
+        <div class="testi-author">Priya M.</div>
+        <div class="testi-context">First-time mom</div>
+      </div>
+      <div class="testi-card reveal reveal-delay-3">
+        <div class="testi-stars">★★★★★</div>
+        <p class="quote">Gentle, not clinical. It felt like a friend checking in on me, not another form to fill out for the doctor.</p>
+        <div class="testi-author">Sofia D.</div>
+        <div class="testi-context">Second C-section</div>
+      </div>
+    </div>
+    <p class="testi-disclaimer reveal reveal-delay-4">Illustrative reviews for preview purposes.</p>
+  </div>
+</section>
+
+<!-- QUOTE BAND -->
+<div class="quote-band reveal">
+  <blockquote>"Resting is not laziness. Resting is active recovery."</blockquote>
+  <cite>From the C-Section Recovery Journal</cite>
+</div>
+
+<div class="seam"></div>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <div class="final-cta-bg"></div>
+  <div class="wrap">
+    <div class="kicker reveal">Free Download</div>
+    <h2 class="reveal reveal-delay-1">Take the first step, today</h2>
+    <p class="reveal reveal-delay-2">Get the free Week 1 preview — your 5-5-5 framework, daily tracker, and emotional check-in — as an instant PDF download. The full 6-week journal is linked inside, whenever you're ready for it.</p>
+    <div class="cta-row reveal reveal-delay-3">
+      <a href="https://drive.google.com/file/d/1Wgr5yYrvuYOKo7i8eIUFvQ90e2JcdQuQ/view?usp=drive_link" class="cta-button" target="_blank" rel="noopener">
+        Download the Free Preview <span class="arrow">→</span>
+      </a>
+    </div>
+    <div class="download-meta reveal reveal-delay-4">
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Instant PDF download</span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/></svg> A4 &amp; US Letter</span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg> No email required</span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p class="disclaimer">This journal is an educational tracking tool only. It is not medical advice and does not substitute for professional diagnosis, treatment, or care from your OB-GYN or healthcare team. Always consult your doctor before starting any exercises or changing any medications.</p>
+    <p class="copyright">C-SECTION RECOVERY JOURNAL © 2026 · KINDRECOVER</p>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal, .seam');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => observer.observe(el));
+
+  // Subtle parallax on hero background
+  const heroBg = document.getElementById('heroBg');
+  window.addEventListener('scroll', () => {
+    const y = window.scrollY;
+    if (y < window.innerHeight) {
+      heroBg.style.transform = `translateY(${y * 0.15}px)`;
+    }
+  }, { passive: true });
+</script>
+
+</body>
+</html>
